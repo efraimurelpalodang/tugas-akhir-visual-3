@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import (
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, "crud"))
 from crud_transaksi_masuk import TransaksiMasukHandler
+from crud_transaksi_keluar import TransaksiKeluarHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -122,8 +123,13 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN TRANSAKSI BARANG KELUAR =================
     def load_page_transaksi_keluar(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_keluar.ui"))
-        self.contentLayout.addWidget(page)
+        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_keluar.ui"))
+        self.contentLayout.addWidget(self.page_trm)
+
+        # panggil class handler
+        self.trm_handler = TransaksiKeluarHandler(self.page_trm, self.user)
+        self.trm_handler.load_combobox_data()
+        self.trm_handler.load_transaksi_keluar_table()
 
     # ================= HALAMAN DATA BARANG =================
     def load_page_data_barang(self):

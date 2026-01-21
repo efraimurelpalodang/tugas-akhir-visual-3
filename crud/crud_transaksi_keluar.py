@@ -2,7 +2,7 @@ import mysql.connector
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
 from PyQt5.QtCore import QDate
 
-class TransaksiMasukHandler:
+class TransaksiKeluarHandler:
     def __init__(self, page, user):
         self.page = page      # page ui yang sudah di load
         self.user = user      # data user login
@@ -33,28 +33,20 @@ class TransaksiMasukHandler:
         for barang in barang_list:
             self.page.comboBox.addItem(barang["nama_barang"], barang["id"])
 
-        # Supplier
-        cursor.execute("SELECT id, nama_supplier FROM supplier ORDER BY nama_supplier ASC")
-        supplier_list = cursor.fetchall()
-        self.page.comboBox_2.clear()
-        for supplier in supplier_list:
-            self.page.comboBox_2.addItem(supplier["nama_supplier"], supplier["id"])
-
         cursor.close()
         conn.close()
 
     # ================= TABLE =================
-    def load_transaksi_masuk_table(self):
+    def load_transaksi_keluar_table(self):
         conn = self.get_connection()
         cursor = conn.cursor(dictionary=True)
 
         cursor.execute("""
-            SELECT t.kode_transaksi, b.nama_barang, dt.quantity, s.nama_supplier, t.tanggal, t.total_harga, t.keterangan
+            SELECT t.kode_transaksi, b.nama_barang, dt.quantity, t.tanggal, t.total_harga, t.keterangan
             FROM detail_transaksi dt
             JOIN transaksi t ON dt.id_transaksi = t.id
             JOIN barang b ON dt.id_barang = b.id
-            LEFT JOIN supplier s ON t.id_supplier = s.id
-            WHERE t.type_transaksi='masuk'
+            WHERE t.type_transaksi='keluar'
             ORDER BY t.created_at DESC
         """)
         rows = cursor.fetchall()
@@ -67,15 +59,11 @@ class TransaksiMasukHandler:
             table.setItem(row_pos, 0, QTableWidgetItem(row["kode_transaksi"]))
             table.setItem(row_pos, 1, QTableWidgetItem(row["nama_barang"]))
             table.setItem(row_pos, 2, QTableWidgetItem(str(row["quantity"])))
-            table.setItem(row_pos, 3, QTableWidgetItem(row["nama_supplier"] if row["nama_supplier"] else ""))
-            table.setItem(row_pos, 4, QTableWidgetItem(str(row["tanggal"])))
-            table.setItem(row_pos, 5, QTableWidgetItem(str(row["total_harga"])))
-            table.setItem(row_pos, 6, QTableWidgetItem(row["keterangan"]))
+            table.setItem(row_pos, 3, QTableWidgetItem(str(row["tanggal"])))
+            table.setItem(row_pos, 4, QTableWidgetItem(str(row["total_harga"])))
+            table.setItem(row_pos, 5, QTableWidgetItem(row["keterangan"]))
 
-        # ❌ table read-only
         table.setEditTriggers(table.NoEditTriggers)
-
-        # ✅ hubungkan klik row → isi form
         table.cellClicked.connect(self.fill_form_from_table)
 
         cursor.close()
@@ -93,20 +81,9 @@ class TransaksiMasukHandler:
             self.page.comboBox.setCurrentIndex(index_barang)
 
         self.page.spinBox.setValue(int(table.item(row, 2).text()))
-
-        # pilih supplier di combobox sesuai nama
-        nama_supplier = table.item(row, 3).text()
-        index_supplier = self.page.comboBox_2.findText(nama_supplier)
-        if index_supplier >= 0:
-            self.page.comboBox_2.setCurrentIndex(index_supplier)
-
-        # set tanggal
-        tanggal_str = table.item(row, 4).text()
-        self.page.dateEdit.setDate(QDate.fromString(tanggal_str, "yyyy-MM-dd"))
-
-        # total & keterangan
-        self.page.lineEdit_5.setText(table.item(row, 5).text())
-        self.page.lineEdit_3.setText(table.item(row, 6).text())
+        self.page.dateEdit.setDate(QDate.fromString(table.item(row, 3).text(), "yyyy-MM-dd"))
+        self.page.lineEdit_5.setText(table.item(row, 4).text())
+        self.page.lineEdit_3.setText(table.item(row, 5).text())
 
     # ================= EDIT =================
     def edit_selected_row(self):
@@ -115,14 +92,12 @@ class TransaksiMasukHandler:
         if selected < 0:
             QMessageBox.warning(self.page, "Peringatan", "Pilih baris yang akan diedit")
             return
-        # update dari inputan ke baris yang dipilih
         table.setItem(selected, 0, QTableWidgetItem(self.page.lineEdit.text()))
         table.setItem(selected, 1, QTableWidgetItem(self.page.comboBox.currentText()))
         table.setItem(selected, 2, QTableWidgetItem(str(self.page.spinBox.value())))
-        table.setItem(selected, 3, QTableWidgetItem(self.page.comboBox_2.currentText()))
-        table.setItem(selected, 4, QTableWidgetItem(self.page.dateEdit.date().toString("yyyy-MM-dd")))
-        table.setItem(selected, 5, QTableWidgetItem(self.page.lineEdit_5.text()))
-        table.setItem(selected, 6, QTableWidgetItem(self.page.lineEdit_3.text()))
+        table.setItem(selected, 3, QTableWidgetItem(self.page.dateEdit.date().toString("yyyy-MM-dd")))
+        table.setItem(selected, 4, QTableWidgetItem(self.page.lineEdit_5.text()))
+        table.setItem(selected, 5, QTableWidgetItem(self.page.lineEdit_3.text()))
 
     # ================= DELETE =================
     def delete_selected_row(self):
@@ -150,7 +125,6 @@ class TransaksiMasukHandler:
         kode = self.page.lineEdit.text()
         id_barang = self.page.comboBox.currentData()
         jumlah = self.page.spinBox.value()
-        id_supplier = self.page.comboBox_2.currentData()
         tanggal = self.page.dateEdit.date().toString("yyyy-MM-dd")
         total = self.page.lineEdit_5.text()
         keterangan = self.page.lineEdit_3.text()
@@ -159,11 +133,11 @@ class TransaksiMasukHandler:
         cursor = conn.cursor()
 
         try:
-            # insert transaksi
+            # insert transaksi keluar
             cursor.execute("""
                 INSERT INTO transaksi (kode_transaksi, id_supplier, tanggal, total_harga, keterangan, type_transaksi)
-                VALUES (%s, %s, %s, %s, %s, 'masuk')
-            """, (kode, id_supplier, tanggal, total, keterangan))
+                VALUES (%s, NULL, %s, %s, %s, 'keluar')
+            """, (kode, tanggal, total, keterangan))
 
             id_transaksi = cursor.lastrowid
 
@@ -173,15 +147,15 @@ class TransaksiMasukHandler:
                 VALUES (%s, %s, %s)
             """, (id_transaksi, id_barang, jumlah))
 
-            # update stok barang
+            # update stok barang → dikurangi
             cursor.execute("""
                 UPDATE barang
-                SET stok = stok + %s
+                SET stok = stok - %s
                 WHERE id = %s
             """, (jumlah, id_barang))
 
             conn.commit()
-            QMessageBox.information(self.page, "Sukses", "Transaksi berhasil disimpan, stok barang diupdate")
+            QMessageBox.information(self.page, "Sukses", "Transaksi keluar berhasil, stok berkurang")
 
             # reset form
             self.page.lineEdit.clear()
@@ -189,7 +163,7 @@ class TransaksiMasukHandler:
             self.page.lineEdit_3.clear()
             self.page.spinBox.setValue(1)
             self.page.comboBox.setCurrentIndex(0)
-            self.page.comboBox_2.setCurrentIndex(0)
+            self.page.dateEdit.setDate(QDate.currentDate())
 
         except mysql.connector.Error as e:
             conn.rollback()
@@ -198,4 +172,3 @@ class TransaksiMasukHandler:
         finally:
             cursor.close()
             conn.close()
-

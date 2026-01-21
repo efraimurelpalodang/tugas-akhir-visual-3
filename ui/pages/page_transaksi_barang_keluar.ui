@@ -93,7 +93,7 @@
            <string notr="true">color: rgb(255, 255, 255);</string>
           </property>
           <property name="text">
-           <string>Transaksi Barang Masuk</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transaksi &lt;span style=&quot; color:#ff5500;&quot;&gt;Barang Keluar&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </widget>
@@ -213,28 +213,10 @@
            <string>Keterangan</string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_4">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>50</y>
-            <width>61</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Supplier</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>170</x>
+            <x>10</x>
             <y>50</y>
             <width>61</width>
             <height>16</height>
@@ -252,7 +234,7 @@
          <widget class="QLineEdit" name="lineEdit_5">
           <property name="geometry">
            <rect>
-            <x>160</x>
+            <x>0</x>
             <y>70</y>
             <width>151</width>
             <height>21</height>
@@ -277,8 +259,8 @@
          <widget class="QLabel" name="label_6">
           <property name="geometry">
            <rect>
-            <x>380</x>
-            <y>0</y>
+            <x>170</x>
+            <y>50</y>
             <width>101</width>
             <height>16</height>
            </rect>
@@ -313,9 +295,9 @@
          <widget class="QDateEdit" name="dateEdit">
           <property name="geometry">
            <rect>
-            <x>370</x>
-            <y>20</y>
-            <width>101</width>
+            <x>160</x>
+            <y>70</y>
+            <width>151</width>
             <height>22</height>
            </rect>
           </property>
@@ -340,7 +322,7 @@
            <rect>
             <x>311</x>
             <y>20</y>
-            <width>61</width>
+            <width>161</width>
             <height>22</height>
            </rect>
           </property>
@@ -430,31 +412,6 @@
           </property>
           <property name="text">
            <string>Tambah</string>
-          </property>
-         </widget>
-         <widget class="QComboBox" name="comboBox_2">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>70</y>
-            <width>151</width>
-            <height>22</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QComboBox {
-    background-color: #a0a0a0;
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-    color: #ffffff;
-    padding-left: 5px;
-}
-
-
-</string>
           </property>
          </widget>
          <widget class="QComboBox" name="comboBox">
@@ -558,11 +515,6 @@ QTableWidget::item:hover {
        </column>
        <column>
         <property name="text">
-         <string>Nama Supplier</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Waktu Masuk</string>
         </property>
        </column>
@@ -597,7 +549,7 @@ QTableWidget::item:hover {
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Daftar Barang Masuk</string>
+        <string>Daftar Barang Keluar</string>
        </property>
       </widget>
      </widget>
