@@ -135,46 +135,56 @@ class TransaksiMasukHandler:
 
     # ================= SAVE =================
     def save_transaksi_to_db(self):
-        # ambil data dari input form
-        kode = self.page.lineEdit.text()
-        id_barang = self.page.comboBox.currentData()
-        jumlah = self.page.spinBox.value()
-        id_supplier = self.page.comboBox_2.currentData()
-        tanggal = self.page.dateEdit.date().toString("yyyy-MM-dd")
-        total = self.page.lineEdit_5.text()
-        keterangan = self.page.lineEdit_3.text()
+      # ambil data dari input form
+      kode = self.page.lineEdit.text()
+      id_barang = self.page.comboBox.currentData()
+      jumlah = self.page.spinBox.value()
+      id_supplier = self.page.comboBox_2.currentData()
+      tanggal = self.page.dateEdit.date().toString("yyyy-MM-dd")
+      total = self.page.lineEdit_5.text()
+      keterangan = self.page.lineEdit_3.text()
 
-        conn = self.get_connection()
-        cursor = conn.cursor()
+      conn = self.get_connection()
+      cursor = conn.cursor()
 
-        try:
-            cursor.execute("""
-                INSERT INTO transaksi (kode_transaksi, id_supplier, tanggal, total_harga, keterangan, type_transaksi)
-                VALUES (%s, %s, %s, %s, %s, 'masuk')
-            """, (kode, id_supplier, tanggal, total, keterangan))
+      try:
+          # insert transaksi
+          cursor.execute("""
+              INSERT INTO transaksi (kode_transaksi, id_supplier, tanggal, total_harga, keterangan, type_transaksi)
+              VALUES (%s, %s, %s, %s, %s, 'masuk')
+          """, (kode, id_supplier, tanggal, total, keterangan))
 
-            id_transaksi = cursor.lastrowid
+          id_transaksi = cursor.lastrowid
 
-            cursor.execute("""
-                INSERT INTO detail_transaksi (id_transaksi, id_barang, quantity)
-                VALUES (%s, %s, %s)
-            """, (id_transaksi, id_barang, jumlah))
+          # insert detail transaksi
+          cursor.execute("""
+              INSERT INTO detail_transaksi (id_transaksi, id_barang, quantity)
+              VALUES (%s, %s, %s)
+          """, (id_transaksi, id_barang, jumlah))
 
-            conn.commit()
-            QMessageBox.information(self.page, "Sukses", "Transaksi berhasil disimpan")
+          # update stok barang
+          cursor.execute("""
+              UPDATE barang
+              SET stok = stok + %s
+              WHERE id = %s
+          """, (jumlah, id_barang))
 
-            # reset form
-            self.page.lineEdit.clear()
-            self.page.lineEdit_5.clear()
-            self.page.lineEdit_3.clear()
-            self.page.spinBox.setValue(1)
-            self.page.comboBox.setCurrentIndex(0)
-            self.page.comboBox_2.setCurrentIndex(0)
+          conn.commit()
+          QMessageBox.information(self.page, "Sukses", "Transaksi berhasil disimpan, stok barang diupdate")
 
-        except mysql.connector.Error as e:
-            conn.rollback()
-            QMessageBox.critical(self.page, "Error", f"Gagal menyimpan transaksi:\n{e}")
+          # reset form
+          self.page.lineEdit.clear()
+          self.page.lineEdit_5.clear()
+          self.page.lineEdit_3.clear()
+          self.page.spinBox.setValue(1)
+          self.page.comboBox.setCurrentIndex(0)
+          self.page.comboBox_2.setCurrentIndex(0)
 
-        finally:
-            cursor.close()
-            conn.close()
+      except mysql.connector.Error as e:
+          conn.rollback()
+          QMessageBox.critical(self.page, "Error", f"Gagal menyimpan transaksi:\n{e}")
+
+      finally:
+          cursor.close()
+          conn.close()
+
