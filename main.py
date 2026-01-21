@@ -6,6 +6,9 @@ from PyQt5.QtWidgets import (
     QApplication, QMainWindow,
     QTableWidgetItem, QMessageBox
 )
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(BASE_DIR, "crud"))
+from crud_transaksi_masuk import TransaksiMasukHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -76,6 +79,18 @@ class Dashboard(QMainWindow):
         # ✅ layout utama di dashboard.ui
         self.contentLayout = self.frameContent.layout()
 
+        # ================= HUBUNGKAN BUTTON SIDEBAR =================
+        self.pushButton.clicked.connect(self.load_page_dashboard)            # Dashboard
+        self.pushButton_6.clicked.connect(self.load_page_transaksi_masuk)    # Transaksi Barang Masuk
+        self.pushButton_7.clicked.connect(self.load_page_transaksi_keluar)   # Transaksi Barang Keluar
+        self.pushButton_2.clicked.connect(self.load_page_data_barang)        # Data Barang
+        self.pushButton_3.clicked.connect(self.load_page_data_kategori)      # Data Kategori
+        self.pushButton_4.clicked.connect(self.load_page_data_satuan)        # Data Satuan
+        self.pushButton_5.clicked.connect(self.load_page_data_supplier)      # Data Supplier
+        self.pushButton_8.clicked.connect(self.load_page_laporan_transaksi)  # Laporan Transaksi
+        self.pushButton_9.clicked.connect(self.load_page_laporan_stok)       # Laporan Stok
+        self.pushButton_10.clicked.connect(self.load_page_management_user)   # Management User
+
         self.load_page_dashboard()
 
     def clear_content(self):
@@ -85,18 +100,74 @@ class Dashboard(QMainWindow):
             if widget:
                 widget.deleteLater()
 
+    # ================= HALAMAN DASHBOARD =================
     def load_page_dashboard(self):
         self.clear_content()
-
-        # load page dashboard
-        self.page_dashboard = uic.loadUi(
-            os.path.join(UI_DIR, "pages", "page_dashboard.ui")
-        )
-
-        # ✅ page masuk ke frameContent
-        self.contentLayout.addWidget(self.page_dashboard)
-
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_dashboard.ui"))
+        self.contentLayout.addWidget(page)
+        # load tabel aktivitas juga
         self.load_table()
+
+    # ================= HALAMAN TRANSAKSI BARANG MASUK =================
+    def load_page_transaksi_masuk(self):
+        self.clear_content()
+        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_masuk.ui"))
+        self.contentLayout.addWidget(self.page_trm)
+
+        # panggil class handler
+        self.trm_handler = TransaksiMasukHandler(self.page_trm, self.user)
+        self.trm_handler.load_combobox_data()
+        self.trm_handler.load_transaksi_masuk_table()
+
+    # ================= HALAMAN TRANSAKSI BARANG KELUAR =================
+    def load_page_transaksi_keluar(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_keluar.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN DATA BARANG =================
+    def load_page_data_barang(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_barang.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN DATA KATEGORI =================
+    def load_page_data_kategori(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_kategori.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN DATA SATUAN =================
+    def load_page_data_satuan(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_satuan.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN DATA SUPPLIER =================
+    def load_page_data_supplier(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_supplier.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN LAPORAN TRANSAKSI =================
+    def load_page_laporan_transaksi(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_transaksi.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN LAPORAN STOK =================
+    def load_page_laporan_stok(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_stok.ui"))
+        self.contentLayout.addWidget(page)
+
+    # ================= HALAMAN MANAGEMENT USER =================
+    def load_page_management_user(self):
+        self.clear_content()
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_management_user.ui"))
+        self.contentLayout.addWidget(page)
+
+    
 
     def load_table(self):
         self.table_ui = uic.loadUi(
@@ -131,6 +202,7 @@ class Dashboard(QMainWindow):
         rows = cursor.fetchall()
 
         table = self.table_ui.tableWidget
+        table.setEditTriggers(table.NoEditTriggers)
         table.setRowCount(len(rows))
 
         for r, row in enumerate(rows):
@@ -139,7 +211,6 @@ class Dashboard(QMainWindow):
 
         cursor.close()
         conn.close()
-
 
 
 # ================= RUN APP =================
