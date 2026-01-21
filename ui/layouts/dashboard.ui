@@ -376,60 +376,7 @@ QPushButton:checked {
 </string>
           </property>
           <property name="text">
-           <string>Data Kategori</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">/* Button sidebar normal */
-QPushButton {
-    background-color: transparent;
-    color: #ecf0f1;
-    border: none;
-    text-align: left;
-    font-size: 10pt;
-
-    /* radius hanya kanan */
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-
-    margin: 2px 8px;
-    padding-left: 12px;
-}
-
-/* Hover: strip kiri */
-QPushButton:hover {
-    background-color: rgba(78, 93, 108, 0.3);
-    border-left: 4px solid  rgb(255, 170, 0);
-    color: white;
-}
-
-/* Pressed */
-QPushButton:pressed {
-    background-color: #2c3e50;
-}
-
-/* Active / Selected */
-QPushButton:checked {
-    background-color: #2980b9;
-    color: white;
-    font-weight: bold;
-    border-left: 4px solid #ffffff;
-}
-</string>
-          </property>
-          <property name="text">
-           <string>Data Satuan</string>
+           <string>Data Kategori - Satuan</string>
           </property>
          </widget>
         </item>
