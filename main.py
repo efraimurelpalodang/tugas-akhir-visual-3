@@ -10,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(BASE_DIR, "crud"))
 from crud_transaksi_masuk import TransaksiMasukHandler
 from crud_transaksi_keluar import TransaksiKeluarHandler
+from crud_data_barang import BarangHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -85,7 +86,7 @@ class Dashboard(QMainWindow):
         self.pushButton_6.clicked.connect(self.load_page_transaksi_masuk)    # Transaksi Barang Masuk
         self.pushButton_7.clicked.connect(self.load_page_transaksi_keluar)   # Transaksi Barang Keluar
         self.pushButton_2.clicked.connect(self.load_page_data_barang)        # Data Barang
-        self.pushButton_3.clicked.connect(self.load_page_data_kategori)      # Data Kategori
+        self.pushButton_3.clicked.connect(self.load_page_data_kategori_satuan)  # Data Kategori & satuan
         self.pushButton_4.clicked.connect(self.load_page_data_satuan)        # Data Satuan
         self.pushButton_5.clicked.connect(self.load_page_data_supplier)      # Data Supplier
         self.pushButton_8.clicked.connect(self.load_page_laporan_transaksi)  # Laporan Transaksi
@@ -134,20 +135,25 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN DATA BARANG =================
     def load_page_data_barang(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_barang.ui"))
-        self.contentLayout.addWidget(page)
+        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_barang.ui"))
+        self.contentLayout.addWidget(self.page_trm)
+
+        # panggil class handler
+        self.trm_handler = BarangHandler(self.page_trm)
+        self.trm_handler.load_combobox_data()
+        self.trm_handler.load_table_barang()
 
     # ================= HALAMAN DATA KATEGORI =================
-    def load_page_data_kategori(self):
+    def load_page_data_kategori_satuan(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_kategori.ui"))
+        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_kategori_satuan.ui"))
         self.contentLayout.addWidget(page)
 
     # ================= HALAMAN DATA SATUAN =================
-    def load_page_data_satuan(self):
-        self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_satuan.ui"))
-        self.contentLayout.addWidget(page)
+    # def load_page_data_satuan(self):
+    #     self.clear_content()
+    #     page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_satuan.ui"))
+    #     self.contentLayout.addWidget(page)
 
     # ================= HALAMAN DATA SUPPLIER =================
     def load_page_data_supplier(self):

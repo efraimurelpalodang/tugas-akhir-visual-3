@@ -78,7 +78,7 @@
            <rect>
             <x>10</x>
             <y>0</y>
-            <width>151</width>
+            <width>171</width>
             <height>20</height>
            </rect>
           </property>
@@ -93,7 +93,7 @@
            <string notr="true">color: rgb(255, 255, 255);</string>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transaksi &lt;span style=&quot; color:#00aa7f;&quot;&gt;Barang Masuk&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Management Data &lt;/span&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Barang &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </widget>
@@ -149,13 +149,13 @@
            </font>
           </property>
           <property name="text">
-           <string>Kode Transaksi</string>
+           <string>Nama Barang</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_2">
           <property name="geometry">
            <rect>
-            <x>170</x>
+            <x>160</x>
             <y>0</y>
             <width>61</width>
             <height>16</height>
@@ -167,38 +167,13 @@
            </font>
           </property>
           <property name="text">
-           <string>Nama Barang</string>
-          </property>
-         </widget>
-         <widget class="QLineEdit" name="lineEdit_3">
-          <property name="geometry">
-           <rect>
-            <x>310</x>
-            <y>70</y>
-            <width>161</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QLineEdit {
-    background-color: #a0a0a0;
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-    color: #ffffff;
-    padding-left: 5px;
-}
-
-
-</string>
+           <string>Kategori</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_3">
           <property name="geometry">
            <rect>
-            <x>320</x>
+            <x>300</x>
             <y>50</y>
             <width>61</width>
             <height>16</height>
@@ -210,7 +185,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Keterangan</string>
+           <string>Stok</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_4">
@@ -228,13 +203,13 @@
            </font>
           </property>
           <property name="text">
-           <string>Supplier</string>
+           <string>Harga Beli</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_5">
           <property name="geometry">
            <rect>
-            <x>170</x>
+            <x>110</x>
             <y>50</y>
             <width>61</width>
             <height>16</height>
@@ -246,15 +221,15 @@
            </font>
           </property>
           <property name="text">
-           <string>Total Harga</string>
+           <string>Harga Jual</string>
           </property>
          </widget>
-         <widget class="QLineEdit" name="lineEdit_5">
+         <widget class="QLineEdit" name="lineEdit_3">
           <property name="geometry">
            <rect>
-            <x>160</x>
+            <x>100</x>
             <y>70</y>
-            <width>151</width>
+            <width>111</width>
             <height>21</height>
            </rect>
           </property>
@@ -274,28 +249,10 @@
 </string>
           </property>
          </widget>
-         <widget class="QLabel" name="label_6">
-          <property name="geometry">
-           <rect>
-            <x>380</x>
-            <y>0</y>
-            <width>101</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Waktu Masuk</string>
-          </property>
-         </widget>
          <widget class="QLabel" name="label_7">
           <property name="geometry">
            <rect>
-            <x>320</x>
+            <x>310</x>
             <y>0</y>
             <width>61</width>
             <height>16</height>
@@ -307,60 +264,10 @@
            </font>
           </property>
           <property name="text">
-           <string>Jumlah </string>
+           <string>Satuan</string>
           </property>
          </widget>
-         <widget class="QDateEdit" name="dateEdit">
-          <property name="geometry">
-           <rect>
-            <x>370</x>
-            <y>20</y>
-            <width>101</width>
-            <height>22</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QDateEdit {
-    background-color: #a0a0a0;
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-    color: #ffffff;
-    padding-left: 5px;
-}
-
-
-</string>
-          </property>
-         </widget>
-         <widget class="QSpinBox" name="spinBox">
-          <property name="geometry">
-           <rect>
-            <x>311</x>
-            <y>20</y>
-            <width>61</width>
-            <height>22</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QSpinBox {
-    background-color: #a0a0a0;
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-    color: #ffffff;
-    padding-left: 5px;
-}
-
-
-</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="edit">
           <property name="geometry">
            <rect>
             <x>80</x>
@@ -384,7 +291,7 @@
            <string>Edit</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="hapus">
           <property name="geometry">
            <rect>
             <x>160</x>
@@ -408,7 +315,7 @@
            <string>Hapus</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_4">
+         <widget class="QPushButton" name="tambah">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -435,9 +342,9 @@
          <widget class="QComboBox" name="comboBox_2">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>70</y>
-            <width>151</width>
+            <x>300</x>
+            <y>20</y>
+            <width>161</width>
             <height>22</height>
            </rect>
           </property>
@@ -460,7 +367,7 @@
          <widget class="QComboBox" name="comboBox">
           <property name="geometry">
            <rect>
-            <x>160</x>
+            <x>150</x>
             <y>20</y>
             <width>151</width>
             <height>22</height>
@@ -468,6 +375,99 @@
           </property>
           <property name="styleSheet">
            <string notr="true">QComboBox {
+    background-color: #a0a0a0;
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: #ffffff;
+    padding-left: 5px;
+}
+
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>70</y>
+            <width>101</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QLineEdit {
+    background-color: #a0a0a0;
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: #ffffff;
+    padding-left: 5px;
+}
+
+
+</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_6">
+          <property name="geometry">
+           <rect>
+            <x>220</x>
+            <y>50</y>
+            <width>61</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>9</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Stok Minimum</string>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="spinBox">
+          <property name="geometry">
+           <rect>
+            <x>210</x>
+            <y>70</y>
+            <width>81</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QSpinBox {
+    background-color: #a0a0a0;
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 4px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: #ffffff;
+    padding-left: 5px;
+}
+
+
+</string>
+          </property>
+         </widget>
+         <widget class="QSpinBox" name="spinBox_2">
+          <property name="geometry">
+           <rect>
+            <x>291</x>
+            <y>70</y>
+            <width>71</width>
+            <height>22</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QSpinBox {
     background-color: #a0a0a0;
     border: none;
     text-align: center;
@@ -543,37 +543,37 @@ QTableWidget::item:hover {
        </property>
        <column>
         <property name="text">
-         <string>Kode Transaksi</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
          <string>Nama Barang</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Jumlah </string>
+         <string>Kategori</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Nama Supplier</string>
+         <string>Satuan</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Waktu Masuk</string>
+         <string>Harga Beli</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Total harga</string>
+         <string>Harga Jual</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Keterangan</string>
+         <string>Stok Minimum</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Stok</string>
         </property>
        </column>
       </widget>
@@ -597,7 +597,7 @@ QTableWidget::item:hover {
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Daftar Barang Masuk</string>
+        <string>Daftar Barang</string>
        </property>
       </widget>
      </widget>
