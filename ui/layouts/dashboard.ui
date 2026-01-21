@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>610</width>
+      <height>400</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>610</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>610</width>
+      <height>400</height>
+     </size>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QFrame" name="frame_2">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>150</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0,0,0);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+            <weight>75</weight>
+            <italic>false</italic>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;INVENTORY &lt;span style=&quot; color:#ffaa00;&quot;&gt;BARANG&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>2</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="maximumSize">
+           <size>
+            <width>16777210</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Dashboard</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Transaksi Barang Masuk</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_7">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Transaksi Barang Keluar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Data Barang</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Data Kategori</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Data Satuan</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Data Supplier</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_8">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Laporan Transaksi</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_9">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Laporan Stok</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_10">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">/* Button sidebar normal */
+QPushButton {
+    background-color: transparent;
+    color: #ecf0f1;
+    border: none;
+    text-align: left;
+    font-size: 10pt;
+
+    /* radius hanya kanan */
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    margin: 2px 8px;
+    padding-left: 12px;
+}
+
+/* Hover: strip kiri */
+QPushButton:hover {
+    background-color: rgba(78, 93, 108, 0.3);
+    border-left: 4px solid  rgb(255, 170, 0);
+    color: white;
+}
+
+/* Pressed */
+QPushButton:pressed {
+    background-color: #2c3e50;
+}
+
+/* Active / Selected */
+QPushButton:checked {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    border-left: 4px solid #ffffff;
+}
+</string>
+          </property>
+          <property name="text">
+           <string>Management User</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_3">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 0, 0);</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QFrame" name="frameContent">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(0, 0, 0);</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4"/>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
