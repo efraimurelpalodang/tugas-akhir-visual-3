@@ -161,7 +161,12 @@ QTableWidget::item:hover {
           </column>
           <column>
            <property name="text">
-            <string>Stok Tersisa</string>
+            <string>Stok Saat ini</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Stok Minimum</string>
            </property>
           </column>
           <column>

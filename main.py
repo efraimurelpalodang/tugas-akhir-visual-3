@@ -15,6 +15,7 @@ from crud_data_kategori_satuan import KategoriSatuanHandler
 from crud_data_supplier import SupplierHandler
 from laporan_transaksi import LaporanTransaksiHandler
 from laporan_stok import LaporanStokHandler
+from crud_user import UserHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -186,8 +187,11 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN MANAGEMENT USER =================
     def load_page_management_user(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_management_user.ui"))
-        self.contentLayout.addWidget(page)
+        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_management_user.ui"))
+        self.contentLayout.addWidget(self.page_trm)
+
+        self.handler = UserHandler(self.page_trm)
+        self.handler.load_table()
 
     def load_table(self):
         self.table_ui = uic.loadUi(
