@@ -14,6 +14,7 @@ from crud_data_barang import BarangHandler
 from crud_data_kategori_satuan import KategoriSatuanHandler
 from crud_data_supplier import SupplierHandler
 from laporan_transaksi import LaporanTransaksiHandler
+from laporan_stok import LaporanStokHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -176,8 +177,11 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN LAPORAN STOK =================
     def load_page_laporan_stok(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_stok.ui"))
-        self.contentLayout.addWidget(page)
+        self.page_stok = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_stok.ui"))
+        self.contentLayout.addWidget(self.page_stok)
+
+        self.stok_handler = LaporanStokHandler(self.page_stok)
+        self.stok_handler.load_table_low_stock()
 
     # ================= HALAMAN MANAGEMENT USER =================
     def load_page_management_user(self):

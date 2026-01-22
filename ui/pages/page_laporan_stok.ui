@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>507</width>
+    <height>391</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QFrame" name="frame">
+   <property name="geometry">
+    <rect>
+     <x>-1</x>
+     <y>-1</y>
+     <width>511</width>
+     <height>391</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>511</width>
+     <height>391</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>511</width>
+     <height>391</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(0, 0, 0);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="frame_2">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QFrame" name="frame_3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="label_8">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>231</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Laporan &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Stok Barang Perlu Ditambah&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_11">
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>491</width>
+            <height>321</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTableWidget {
+    background-color: #1f2937;      /* body gelap */
+    color: #f1f5f9;                 /* text isi tabel */
+    gridline-color: #374151;
+    selection-background-color: #2563eb;
+    selection-color: white;
+}
+
+/* Header kolom */
+QHeaderView::section {
+    background-color: #111827;      /* header lebih gelap */
+    color: #f9fafb;                 /* text header putih */
+    padding: 6px;
+    border: none;
+    font-weight: bold;
+}
+
+/* Alternating row */
+QTableWidget::item:alternate {
+    background-color: #111827;
+}
+
+/* Hover row */
+QTableWidget::item:hover {
+    background-color: #374151;
+}</string>
+          </property>
+          <column>
+           <property name="text">
+            <string>Nama Barang</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Kategori</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Stok Tersisa</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Satuan</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
