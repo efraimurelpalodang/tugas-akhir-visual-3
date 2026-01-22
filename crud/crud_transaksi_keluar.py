@@ -1,16 +1,19 @@
 import mysql.connector
 from PyQt5.QtWidgets import QTableWidgetItem, QMessageBox
-from PyQt5.QtCore import QDate
+from PyQt5.QtCore import QDate, Qt
+
 
 class TransaksiKeluarHandler:
     def __init__(self, page, user):
-        self.page = page      # page ui yang sudah di load
-        self.user = user      # data user login
+        self.page = page
+        self.user = user
 
-        # hubungkan tombol
-        self.page.pushButton_4.clicked.connect(self.save_transaksi_to_db)  # save
-        self.page.pushButton_2.clicked.connect(self.edit_selected_row)     # edit
-        self.page.pushButton_3.clicked.connect(self.delete_selected_row)   # delete
+        self.page.pushButton_4.clicked.connect(self.save_transaksi_to_db)
+        self.page.pushButton_2.clicked.connect(self.edit_selected_row)
+        self.page.pushButton_3.clicked.connect(self.delete_selected_row)
+
+        self.load_combobox_data()
+        self.load_transaksi_keluar_table()
 
     # ================= DB CONNECTION =================
     def get_connection(self):
@@ -26,12 +29,11 @@ class TransaksiKeluarHandler:
         conn = self.get_connection()
         cursor = conn.cursor(dictionary=True)
 
-        # Barang
         cursor.execute("SELECT id, nama_barang FROM barang ORDER BY nama_barang ASC")
-        barang_list = cursor.fetchall()
         self.page.comboBox.clear()
-        for barang in barang_list:
-            self.page.comboBox.addItem(barang["nama_barang"], barang["id"])
+
+        for row in cursor.fetchall():
+            self.page.comboBox.addItem(row["nama_barang"], row["id"])
 
         cursor.close()
         conn.close()
@@ -42,133 +44,198 @@ class TransaksiKeluarHandler:
         cursor = conn.cursor(dictionary=True)
 
         cursor.execute("""
-            SELECT t.kode_transaksi, b.nama_barang, dt.quantity, t.tanggal, t.total_harga, t.keterangan
+            SELECT 
+                t.id AS id_transaksi,
+                t.kode_transaksi,
+                b.nama_barang,
+                dt.quantity,
+                t.tanggal,
+                t.total_harga,
+                t.keterangan
             FROM detail_transaksi dt
             JOIN transaksi t ON dt.id_transaksi = t.id
             JOIN barang b ON dt.id_barang = b.id
-            WHERE t.type_transaksi='keluar'
+            WHERE t.type_transaksi = 'keluar'
             ORDER BY t.created_at DESC
         """)
-        rows = cursor.fetchall()
+
         table = self.page.tableWidget
+        table.clearContents()
         table.setRowCount(0)
+        table.setColumnCount(7)
 
-        for row in rows:
-            row_pos = table.rowCount()
-            table.insertRow(row_pos)
-            table.setItem(row_pos, 0, QTableWidgetItem(row["kode_transaksi"]))
-            table.setItem(row_pos, 1, QTableWidgetItem(row["nama_barang"]))
-            table.setItem(row_pos, 2, QTableWidgetItem(str(row["quantity"])))
-            table.setItem(row_pos, 3, QTableWidgetItem(str(row["tanggal"])))
-            table.setItem(row_pos, 4, QTableWidgetItem(str(row["total_harga"])))
-            table.setItem(row_pos, 5, QTableWidgetItem(row["keterangan"]))
+        for data in cursor.fetchall():
+            row = table.rowCount()
+            table.insertRow(row)
 
+            # simpan ID transaksi (hidden)
+            item_id = QTableWidgetItem(str(data["id_transaksi"]))
+            item_id.setData(Qt.UserRole, data["id_transaksi"])
+            table.setItem(row, 0, item_id)
+
+            table.setItem(row, 1, QTableWidgetItem(data["kode_transaksi"]))
+            table.setItem(row, 2, QTableWidgetItem(data["nama_barang"]))
+            table.setItem(row, 3, QTableWidgetItem(str(data["quantity"])))
+            table.setItem(row, 4, QTableWidgetItem(str(data["tanggal"])))
+            table.setItem(row, 5, QTableWidgetItem(str(data["total_harga"])))
+
+            keterangan = data["keterangan"] if data["keterangan"] else ""
+            table.setItem(row, 6, QTableWidgetItem(keterangan))
+
+        table.setColumnHidden(0, True)
         table.setEditTriggers(table.NoEditTriggers)
         table.cellClicked.connect(self.fill_form_from_table)
 
         cursor.close()
         conn.close()
 
-    # ================= CLICK TABLE → ISI FORM =================
+    # ================= SAFE GET TEXT =================
+    def _text(self, table, r, c):
+        item = table.item(r, c)
+        return item.text() if item else ""
+
+    # ================= CLICK TABLE =================
     def fill_form_from_table(self, row, column):
         table = self.page.tableWidget
-        self.page.lineEdit.setText(table.item(row, 0).text())  # kode
 
-        # pilih barang di combobox sesuai nama
-        nama_barang = table.item(row, 1).text()
-        index_barang = self.page.comboBox.findText(nama_barang)
-        if index_barang >= 0:
-            self.page.comboBox.setCurrentIndex(index_barang)
+        self.page.lineEdit.setText(self._text(table, row, 1))
 
-        self.page.spinBox.setValue(int(table.item(row, 2).text()))
-        self.page.dateEdit.setDate(QDate.fromString(table.item(row, 3).text(), "yyyy-MM-dd"))
-        self.page.lineEdit_5.setText(table.item(row, 4).text())
-        self.page.lineEdit_3.setText(table.item(row, 5).text())
+        index = self.page.comboBox.findText(self._text(table, row, 2))
+        if index >= 0:
+            self.page.comboBox.setCurrentIndex(index)
+
+        qty = self._text(table, row, 3)
+        self.page.spinBox.setValue(int(qty) if qty.isdigit() else 0)
+
+        self.page.dateEdit.setDate(
+            QDate.fromString(self._text(table, row, 4), "yyyy-MM-dd")
+        )
+
+        self.page.lineEdit_5.setText(self._text(table, row, 5))
+        self.page.lineEdit_3.setText(self._text(table, row, 6))
 
     # ================= EDIT =================
     def edit_selected_row(self):
         table = self.page.tableWidget
-        selected = table.currentRow()
-        if selected < 0:
-            QMessageBox.warning(self.page, "Peringatan", "Pilih baris yang akan diedit")
-            return
-        table.setItem(selected, 0, QTableWidgetItem(self.page.lineEdit.text()))
-        table.setItem(selected, 1, QTableWidgetItem(self.page.comboBox.currentText()))
-        table.setItem(selected, 2, QTableWidgetItem(str(self.page.spinBox.value())))
-        table.setItem(selected, 3, QTableWidgetItem(self.page.dateEdit.date().toString("yyyy-MM-dd")))
-        table.setItem(selected, 4, QTableWidgetItem(self.page.lineEdit_5.text()))
-        table.setItem(selected, 5, QTableWidgetItem(self.page.lineEdit_3.text()))
+        row = table.currentRow()
 
-    # ================= DELETE =================
-    def delete_selected_row(self):
-        table = self.page.tableWidget
-        selected = table.currentRow()
-        if selected < 0:
-            QMessageBox.warning(self.page, "Peringatan", "Pilih baris yang akan dihapus")
+        if row < 0:
+            QMessageBox.warning(self.page, "Peringatan", "Pilih transaksi dulu")
             return
 
-        # konfirmasi sebelum hapus
-        reply = QMessageBox.question(
-            self.page,
-            "Konfirmasi Hapus",
-            "Apakah Anda yakin ingin menghapus transaksi ini?",
-            QMessageBox.Yes | QMessageBox.No,
-            QMessageBox.No
-        )
+        id_transaksi = int(table.item(row, 0).text())
 
-        if reply == QMessageBox.Yes:
-            table.removeRow(selected)
-
-    # ================= SAVE =================
-    def save_transaksi_to_db(self):
-        # ambil data dari input form
-        kode = self.page.lineEdit.text()
-        id_barang = self.page.comboBox.currentData()
-        jumlah = self.page.spinBox.value()
+        id_barang_baru = self.page.comboBox.currentData()
+        jumlah_baru = self.page.spinBox.value()
         tanggal = self.page.dateEdit.date().toString("yyyy-MM-dd")
         total = self.page.lineEdit_5.text()
         keterangan = self.page.lineEdit_3.text()
 
         conn = self.get_connection()
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True)
 
         try:
-            # insert transaksi keluar
             cursor.execute("""
-                INSERT INTO transaksi (kode_transaksi, id_supplier, tanggal, total_harga, keterangan, type_transaksi)
-                VALUES (%s, NULL, %s, %s, %s, 'keluar')
-            """, (kode, tanggal, total, keterangan))
+                SELECT id_barang, quantity
+                FROM detail_transaksi
+                WHERE id_transaksi = %s
+            """, (id_transaksi,))
+            lama = cursor.fetchone()
 
-            id_transaksi = cursor.lastrowid
+            if not lama:
+                QMessageBox.critical(self.page, "Error", "Detail transaksi tidak ditemukan")
+                return
 
-            # insert detail transaksi
             cursor.execute("""
-                INSERT INTO detail_transaksi (id_transaksi, id_barang, quantity)
-                VALUES (%s, %s, %s)
-            """, (id_transaksi, id_barang, jumlah))
+                UPDATE barang SET stok = stok + %s WHERE id = %s
+            """, (lama["quantity"], lama["id_barang"]))
 
-            # update stok barang → dikurangi
             cursor.execute("""
-                UPDATE barang
-                SET stok = stok - %s
-                WHERE id = %s
-            """, (jumlah, id_barang))
+                UPDATE transaksi
+                SET tanggal=%s, total_harga=%s, keterangan=%s
+                WHERE id=%s
+            """, (tanggal, total, keterangan, id_transaksi))
+
+            cursor.execute("""
+                UPDATE detail_transaksi
+                SET id_barang=%s, quantity=%s
+                WHERE id_transaksi=%s
+            """, (id_barang_baru, jumlah_baru, id_transaksi))
+
+            cursor.execute("""
+                UPDATE barang SET stok = stok - %s WHERE id = %s
+            """, (jumlah_baru, id_barang_baru))
 
             conn.commit()
-            QMessageBox.information(self.page, "Sukses", "Transaksi keluar berhasil, stok berkurang")
-
-            # reset form
-            self.page.lineEdit.clear()
-            self.page.lineEdit_5.clear()
-            self.page.lineEdit_3.clear()
-            self.page.spinBox.setValue(1)
-            self.page.comboBox.setCurrentIndex(0)
-            self.page.dateEdit.setDate(QDate.currentDate())
+            QMessageBox.information(self.page, "Sukses", "Transaksi diperbarui")
+            self.load_transaksi_keluar_table()
 
         except mysql.connector.Error as e:
             conn.rollback()
-            QMessageBox.critical(self.page, "Error", f"Gagal menyimpan transaksi:\n{e}")
+            QMessageBox.critical(self.page, "Error", str(e))
+        finally:
+            cursor.close()
+            conn.close()
 
+    # ================= DELETE (UI ONLY) =================
+    def delete_selected_row(self):
+        table = self.page.tableWidget
+        row = table.currentRow()
+
+        if row < 0:
+            QMessageBox.warning(self.page, "Peringatan", "Pilih baris dulu")
+            return
+
+        if QMessageBox.question(
+            self.page, "Konfirmasi", "Hapus baris ini?",
+            QMessageBox.Yes | QMessageBox.No
+        ) == QMessageBox.Yes:
+            table.removeRow(row)
+
+    # ================= SAVE =================
+    def save_transaksi_to_db(self):
+        kode = self.page.lineEdit.text().strip()
+        id_barang = self.page.comboBox.currentData()
+        jumlah = self.page.spinBox.value()
+        tanggal = self.page.dateEdit.date().toString("yyyy-MM-dd")
+        total = self.page.lineEdit_5.text().strip()
+        keterangan = self.page.lineEdit_3.text().strip()
+        id_user = self.user["id"]
+
+        if not kode or not total:
+            QMessageBox.warning(self.page, "Peringatan", "Kode & total wajib diisi")
+            return
+
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("""
+                INSERT INTO transaksi
+                (kode_transaksi, id_user, id_supplier, tanggal,
+                 total_harga, keterangan, type_transaksi)
+                VALUES (%s, %s, NULL, %s, %s, %s, 'keluar')
+            """, (kode, id_user, tanggal, total, keterangan))
+
+            id_transaksi = cursor.lastrowid
+
+            cursor.execute("""
+                INSERT INTO detail_transaksi
+                (id_transaksi, id_barang, quantity)
+                VALUES (%s, %s, %s)
+            """, (id_transaksi, id_barang, jumlah))
+
+            cursor.execute("""
+                UPDATE barang SET stok = stok - %s WHERE id = %s
+            """, (jumlah, id_barang))
+
+            conn.commit()
+            QMessageBox.information(self.page, "Sukses", "Transaksi berhasil disimpan")
+            self.load_transaksi_keluar_table()
+
+        except mysql.connector.Error as e:
+            conn.rollback()
+            QMessageBox.critical(self.page, "Error", str(e))
         finally:
             cursor.close()
             conn.close()

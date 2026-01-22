@@ -47,10 +47,10 @@ class SupplierHandler:
     # ================= CLICK TABLE → ISI FORM =================
     def fill_form_from_table(self, row, column):
         table = self.page.tableWidget
-        self.page.nama.setText(table.item(row, 0).text())
-        self.page.telp.setText(table.item(row, 1).text())
-        self.page.email.setText(table.item(row, 2).text())
-        self.page.alamat.setText(table.item(row, 3).text())
+        self.page.nama.setText(table.item(row, 0).text())     # nama
+        self.page.alamat.setText(table.item(row, 1).text())   # alamat
+        self.page.telp.setText(table.item(row, 2).text())     # telepon
+        self.page.email.setText(table.item(row, 3).text()) 
 
     # ================= ADD =================
     def add_supplier(self):

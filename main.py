@@ -163,43 +163,69 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN DASHBOARD =================
     def load_page_dashboard(self):
         self.clear_content()
-        self.page_dashboard = uic.loadUi(os.path.join(UI_DIR, "pages", "page_dashboard.ui"))
+        self.page_dashboard = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_dashboard.ui")
+        )
         self.contentLayout.addWidget(self.page_dashboard)
+
         self.load_table()
         self.load_dashboard_cards()
+
+
+        self.report_dashboard = ReportHandler(self.page_dashboard)
+
 
     # ================= HALAMAN TRANSAKSI BARANG MASUK =================
     def load_page_transaksi_masuk(self):
         self.clear_content()
-        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_masuk.ui"))
-        self.contentLayout.addWidget(self.page_trm)
 
-        # panggil class handler
-        self.trm_handler = TransaksiMasukHandler(self.page_trm, self.user)
-        self.trm_handler.load_combobox_data()
-        self.trm_handler.load_transaksi_masuk_table()
+        self.page_trm_masuk = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_transaksi_barang_masuk.ui")
+        )
+        self.contentLayout.addWidget(self.page_trm_masuk)
+
+        self.trm_masuk_handler = TransaksiMasukHandler(
+            self.page_trm_masuk, self.user
+        )
+        self.trm_masuk_handler.load_combobox_data()
+        self.trm_masuk_handler.load_transaksi_masuk_table()
+
+        self.report_trm_masuk = ReportHandler(self.page_trm_masuk)
+
 
     # ================= HALAMAN TRANSAKSI BARANG KELUAR =================
     def load_page_transaksi_keluar(self):
         self.clear_content()
-        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_transaksi_barang_keluar.ui"))
-        self.contentLayout.addWidget(self.page_trm)
 
-        # panggil class handler
-        self.trm_handler = TransaksiKeluarHandler(self.page_trm, self.user)
-        self.trm_handler.load_combobox_data()
-        self.trm_handler.load_transaksi_keluar_table()
+        self.page_trm_keluar = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_transaksi_barang_keluar.ui")
+        )
+        self.contentLayout.addWidget(self.page_trm_keluar)
+
+        self.trm_keluar_handler = TransaksiKeluarHandler(
+            self.page_trm_keluar, self.user
+        )
+        self.trm_keluar_handler.load_combobox_data()
+        self.trm_keluar_handler.load_transaksi_keluar_table()
+
+        self.report_trm_keluar = ReportHandler(self.page_trm_keluar)
+
 
     # ================= HALAMAN DATA BARANG =================
     def load_page_data_barang(self):
         self.clear_content()
-        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_barang.ui"))
-        self.contentLayout.addWidget(self.page_trm)
 
-        # panggil class handler
-        self.trm_handler = BarangHandler(self.page_trm)
-        self.trm_handler.load_combobox_data()
-        self.trm_handler.load_table_barang()
+        self.page_barang = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_data_barang.ui")
+        )
+        self.contentLayout.addWidget(self.page_barang)
+
+        self.barang_handler = BarangHandler(self.page_barang)
+        self.barang_handler.load_combobox_data()
+        self.barang_handler.load_table_barang()
+
+        self.report_barang = ReportHandler(self.page_barang)
+
 
     # ================= HALAMAN DATA KATEGORI & SATUAN =================
     def load_page_data_kategori_satuan(self):
@@ -223,41 +249,57 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN LAPORAN TRANSAKSI =================
     def load_page_laporan_transaksi(self):
         self.clear_content()
-        self.page_laporan = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_transaksi.ui"))
+
+        self.page_laporan = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_laporan_transaksi.ui")
+        )
         self.contentLayout.addWidget(self.page_laporan)
 
         self.laporan_handler = LaporanTransaksiHandler(self.page_laporan)
         self.laporan_handler.load_table()
-        self.report_handler = ReportHandler(self.page_laporan)
+
+        self.report_laporan = ReportHandler(self.page_laporan)
+
+
 
     # ================= HALAMAN LAPORAN STOK =================
     def load_page_laporan_stok(self):
         self.clear_content()
-        self.page_stok = uic.loadUi(os.path.join(UI_DIR, "pages", "page_laporan_stok.ui"))
+
+        self.page_stok = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_laporan_stok.ui")
+        )
         self.contentLayout.addWidget(self.page_stok)
 
         self.stok_handler = LaporanStokHandler(self.page_stok)
         self.stok_handler.load_table_low_stock()
 
+        self.report_stok = ReportHandler(self.page_stok)
+
+
     # ================= HALAMAN MANAGEMENT USER =================
     def load_page_management_user(self):
         self.clear_content()
-        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_management_user.ui"))
-        self.contentLayout.addWidget(self.page_trm)
+        self.page_user = uic.loadUi(
+            os.path.join(UI_DIR, "pages", "page_management_user.ui")
+        )
+        self.contentLayout.addWidget(self.page_user)
 
-        self.handler = UserHandler(self.page_trm)
+        self.handler = UserHandler(self.page_user)
         self.handler.load_table()
+
+        self.report_user = ReportHandler(self.page_user)
 
     def load_table(self):
         self.table_ui = uic.loadUi(
             os.path.join(UI_DIR, "components", "table_aktivitas.ui")
         )
-
-        # ✅ MASUKKAN TABLE KE frameContent JUGA
         self.contentLayout.addWidget(self.table_ui)
-        self.report_handler = ReportHandler(self.table_ui)
+
+        self.report_aktivitas = ReportHandler(self.table_ui)
 
         self.load_data_mysql()
+
 
     def load_data_mysql(self):
         conn = mysql.connector.connect(

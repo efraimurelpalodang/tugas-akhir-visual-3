@@ -6,135 +6,50 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
-    <height>391</height>
+    <width>684</width>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QFrame" name="frame">
+  <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>-1</x>
-     <y>-1</y>
-     <width>511</width>
-     <height>391</height>
+     <x>10</x>
+     <y>0</y>
+     <width>481</width>
+     <height>61</height>
     </rect>
    </property>
-   <property name="minimumSize">
-    <size>
-     <width>511</width>
-     <height>391</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>511</width>
-     <height>391</height>
-    </size>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(0, 0, 0);</string>
+    <string notr="true">color: rgb(255, 255, 255);</string>
    </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Management Data &lt;/span&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Kategori &amp;amp; Satuan&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_kategori">
+   <property name="enabled">
+    <bool>true</bool>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QFrame" name="frame_2">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QFrame" name="frame_3">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QLabel" name="label_8">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>0</y>
-            <width>241</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Management Data &lt;/span&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Kategori &amp;amp; Satuan&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_11">
-         <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QFrame" name="frame_5">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <widget class="QTableWidget" name="tableWidget_kategori">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>20</y>
-               <width>251</width>
-               <height>111</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QTableWidget {
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>301</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableWidget {
     background-color: #1f2937;      /* body gelap */
     color: #f1f5f9;                 /* text isi tabel */
     gridline-color: #374151;
@@ -160,72 +75,71 @@ QTableWidget::item:alternate {
 QTableWidget::item:hover {
     background-color: #374151;
 }</string>
-             </property>
-             <column>
-              <property name="text">
-               <string>Nama Kategori</string>
-              </property>
-             </column>
-            </widget>
-            <widget class="QLabel" name="label_10">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>151</width>
-               <height>20</height>
-              </rect>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Daftar Kategori</string>
-             </property>
-            </widget>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_6">
-            <property name="minimumSize">
-             <size>
-              <width>200</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>220</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <widget class="QLineEdit" name="lineEdit_kategori">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>50</y>
-               <width>211</width>
-               <height>21</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QLineEdit {
+   </property>
+   <column>
+    <property name="text">
+     <string>Nama Kategori</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>191</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Daftar Kategori</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="hapus_kategori">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>180</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	background-color: rgb(255, 0, 0);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Hapus</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_kategori">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>130</y>
+     <width>351</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
     background-color: #a0a0a0;
     border: none;
     text-align: center;
@@ -238,37 +152,19 @@ QTableWidget::item:hover {
 
 
 </string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="label">
-             <property name="geometry">
-              <rect>
-               <x>20</x>
-               <y>30</y>
-               <width>61</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>9</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Nama Kategori</string>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="edit_kategori">
-             <property name="geometry">
-              <rect>
-               <x>80</x>
-               <y>80</y>
-               <width>71</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edit_kategori">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>180</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
 	background-color: rgb(255, 170, 0);
     border: none;
     text-align: center;
@@ -277,46 +173,40 @@ QTableWidget::item:hover {
     margin: 2px 8px;
     color: rgb(0,0,0);
 }</string>
-             </property>
-             <property name="text">
-              <string>Edit</string>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="hapus_kategori">
-             <property name="geometry">
-              <rect>
-               <x>150</x>
-               <y>80</y>
-               <width>71</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
-	color: rgb(255, 255, 255);
-	background-color: rgb(255, 0, 0);
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-}</string>
-             </property>
-             <property name="text">
-              <string>Hapus</string>
-             </property>
-            </widget>
-            <widget class="QPushButton" name="tambah_kategori">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>80</y>
-               <width>71</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPushButton {
+   </property>
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>110</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Nama Kategori&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tambah_kategori">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>180</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
     background-color: rgb(255, 255, 255);
     border: none;
     text-align: center;
@@ -325,59 +215,25 @@ QTableWidget::item:hover {
     margin: 2px 8px;
     color: rgb(0,0,0);
 }</string>
-             </property>
-             <property name="text">
-              <string>Tambah</string>
-             </property>
-            </widget>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QFrame" name="frame_4">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QFrame" name="frame_7">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QTableWidget" name="tableWidget_satuan">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>40</y>
-            <width>251</width>
-            <height>121</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QTableWidget {
+   </property>
+   <property name="text">
+    <string>Tambah</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_satuan">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>310</y>
+     <width>301</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableWidget {
     background-color: #1f2937;      /* body gelap */
     color: #f1f5f9;                 /* text isi tabel */
     gridline-color: #374151;
@@ -403,66 +259,71 @@ QTableWidget::item:alternate {
 QTableWidget::item:hover {
     background-color: #374151;
 }</string>
-          </property>
-          <column>
-           <property name="text">
-            <string>Nama Satuan</string>
-           </property>
-          </column>
-         </widget>
-         <widget class="QLabel" name="label_11">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>20</y>
-            <width>151</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Daftar Satuan</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_8">
-         <property name="maximumSize">
-          <size>
-           <width>220</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QLineEdit" name="lineEdit_satuan">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>80</y>
-            <width>211</width>
-            <height>21</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QLineEdit {
+   </property>
+   <column>
+    <property name="text">
+     <string>Nama Satuan</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>280</y>
+     <width>151</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Daftar Satuan</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="hapus_satuan">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>390</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	color: rgb(255, 255, 255);
+	background-color: rgb(255, 0, 0);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Hapus</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_satuan">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>340</y>
+     <width>341</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
     background-color: #a0a0a0;
     border: none;
     text-align: center;
@@ -475,88 +336,40 @@ QTableWidget::item:hover {
 
 
 </string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="hapus_satuan">
-          <property name="geometry">
-           <rect>
-            <x>150</x>
-            <y>110</y>
-            <width>71</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-	color: rgb(255, 255, 255);
-	background-color: rgb(255, 0, 0);
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-}</string>
-          </property>
-          <property name="text">
-           <string>Hapus</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_2">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>60</y>
-            <width>61</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>9</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);</string>
-          </property>
-          <property name="text">
-           <string>Nama Satuan</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="edit_satuan">
-          <property name="geometry">
-           <rect>
-            <x>80</x>
-            <y>110</y>
-            <width>71</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-	background-color: rgb(255, 170, 0);
-    border: none;
-    text-align: center;
-    font-size: 10pt;
-    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
-    margin: 2px 8px;
-    color: rgb(0,0,0);
-}</string>
-          </property>
-          <property name="text">
-           <string>Edit</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="tambah_satuan">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>110</y>
-            <width>71</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>310</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>9</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Nama Satuan</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="tambah_satuan">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>390</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
     background-color: rgb(255, 255, 255);
     border: none;
     text-align: center;
@@ -565,17 +378,34 @@ QTableWidget::item:hover {
     margin: 2px 8px;
     color: rgb(0,0,0);
 }</string>
-          </property>
-          <property name="text">
-           <string>Tambah</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-   </layout>
+   </property>
+   <property name="text">
+    <string>Tambah</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="edit_satuan">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>390</y>
+     <width>121</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+	background-color: rgb(255, 170, 0);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: rgb(0,0,0);
+}</string>
+   </property>
+   <property name="text">
+    <string>Edit</string>
+   </property>
   </widget>
  </widget>
  <resources/>

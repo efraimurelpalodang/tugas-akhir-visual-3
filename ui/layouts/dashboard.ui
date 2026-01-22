@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>412</height>
+    <width>1298</width>
+    <height>753</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,23 +17,14 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>-10</y>
-      <width>610</width>
-      <height>400</height>
+      <x>-1</x>
+      <y>-1</y>
+      <width>1301</width>
+      <height>711</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>610</width>
-      <height>400</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>610</width>
-      <height>400</height>
-     </size>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -44,20 +35,14 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QFrame" name="frame_2">
-       <property name="minimumSize">
-        <size>
-         <width>150</width>
-         <height>0</height>
-        </size>
-       </property>
        <property name="maximumSize">
         <size>
-         <width>150</width>
+         <width>250</width>
          <height>16777215</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(0,0,0);
+        <string notr="true">
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="frameShape">
@@ -66,7 +51,7 @@ color: rgb(255, 255, 255);</string>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="label">
           <property name="minimumSize">
@@ -104,7 +89,7 @@ color: rgb(255, 255, 255);</string>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>2</width>
+            <width>58</width>
             <height>20</height>
            </size>
           </property>
@@ -115,7 +100,7 @@ color: rgb(255, 255, 255);</string>
           <property name="maximumSize">
            <size>
             <width>16777210</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
@@ -173,7 +158,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -226,7 +211,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -279,7 +264,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -332,7 +317,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -385,7 +370,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -438,7 +423,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -491,7 +476,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -544,7 +529,7 @@ QPushButton:checked {
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>50</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -598,7 +583,7 @@ QPushButton:checked {
      <item>
       <widget class="QFrame" name="frame_3">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(0, 0, 0);</string>
+        <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
@@ -606,17 +591,22 @@ QPushButton:checked {
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QFrame" name="frame_4">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>30</height>
+            <height>80</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="styleSheet">
-           <string notr="true">color: rgb(255, 255, 255);</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
@@ -624,90 +614,57 @@ QPushButton:checked {
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-               <weight>50</weight>
-               <italic>false</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Selamat Datang&lt;/span&gt;,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="labelUser">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-               <weight>50</weight>
-               <italic>false</italic>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;User&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>195</width>
-               <height>13</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_11">
-             <property name="minimumSize">
-              <size>
-               <width>80</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>30</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">/* Button sidebar normal */
+          <widget class="QLabel" name="label_2">
+           <property name="geometry">
+            <rect>
+             <x>12</x>
+             <y>20</y>
+             <width>183</width>
+             <height>30</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Selamat Datang,</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="labelUser">
+           <property name="geometry">
+            <rect>
+             <x>200</x>
+             <y>20</y>
+             <width>49</width>
+             <height>30</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+             <italic>false</italic>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 170, 0);</string>
+           </property>
+           <property name="text">
+            <string>User</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_11">
+           <property name="geometry">
+            <rect>
+             <x>860</x>
+             <y>10</y>
+             <width>121</width>
+             <height>41</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">/* Button sidebar normal */
 QPushButton {
     background-color: #ff0000;
     color: #ecf0f1;  /* Putih abu-abu */
@@ -735,13 +692,11 @@ QPushButton:checked {
     color: white;
     font-weight: bold;
 }</string>
-             </property>
-             <property name="text">
-              <string>Keluar</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+           </property>
+           <property name="text">
+            <string>Keluar</string>
+           </property>
+          </widget>
          </widget>
         </item>
         <item>
@@ -755,7 +710,18 @@ QPushButton:checked {
           <property name="frameShadow">
            <enum>QFrame::Raised</enum>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4"/>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QFrame" name="frame_5">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -769,8 +735,8 @@ QPushButton:checked {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
-     <height>18</height>
+     <width>1298</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
