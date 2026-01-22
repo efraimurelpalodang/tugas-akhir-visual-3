@@ -1,12 +1,15 @@
-from PyQt5.QtWidgets import QMainWindow, QTableWidget, QTableWidgetItem, QPushButton, QVBoxLayout, QWidget, QMessageBox
+import os
+from datetime import datetime
 import mysql.connector
+from PyQt5.QtWidgets import QMessageBox
+
 
 class ReportHandler:
     def __init__(self, page):
         self.page = page
-        self.report_windows = []
         self.setup_buttons()
 
+    # ====================== KONEKSI DB ======================
     def get_connection(self):
         return mysql.connector.connect(
             host="localhost",
@@ -15,192 +18,228 @@ class ReportHandler:
             database="db_inventory_gudang"
         )
 
+    # ====================== CONNECT BUTTON ======================
     def setup_buttons(self):
-      if hasattr(self.page, "btn_report_users"):
-          self.page.btn_report_users.clicked.connect(self.report_all_users)
+        if hasattr(self.page, "btn_report_users"):
+            self.page.btn_report_users.clicked.connect(self.report_all_users)
 
-      if hasattr(self.page, "btn_report_barang"):
-          self.page.btn_report_barang.clicked.connect(self.report_all_barang)
+        if hasattr(self.page, "btn_report_barang"):
+            self.page.btn_report_barang.clicked.connect(self.report_all_barang)
 
-      if hasattr(self.page, "btn_report_barang_masuk"):
-          self.page.btn_report_barang_masuk.clicked.connect(self.report_barang_masuk)
+        if hasattr(self.page, "btn_report_barang_masuk"):
+            self.page.btn_report_barang_masuk.clicked.connect(self.report_barang_masuk)
 
-      if hasattr(self.page, "btn_report_barang_keluar"):
-          self.page.btn_report_barang_keluar.clicked.connect(self.report_barang_keluar)
+        if hasattr(self.page, "btn_report_barang_keluar"):
+            self.page.btn_report_barang_keluar.clicked.connect(self.report_barang_keluar)
 
-      if hasattr(self.page, "btn_report_stok_min"):
-          self.page.btn_report_stok_min.clicked.connect(self.report_stok_min)
+        if hasattr(self.page, "btn_report_stok_min"):
+            self.page.btn_report_stok_min.clicked.connect(self.report_stok_min)
 
-      if hasattr(self.page, "btn_report_transaksi"):
-          self.page.btn_report_transaksi.clicked.connect(self.report_transaksi_keseluruhan)
+        if hasattr(self.page, "btn_report_transaksi"):
+            self.page.btn_report_transaksi.clicked.connect(self.report_transaksi_keseluruhan)
 
-      if hasattr(self.page, "btn_report_aktivitas_user"):
-          self.page.btn_report_aktivitas_user.clicked.connect(self.report_aktivitas_user)
+        if hasattr(self.page, "btn_report_aktivitas_user"):
+            self.page.btn_report_aktivitas_user.clicked.connect(self.report_aktivitas_user)
 
-    # ====================== Fungsi report umum ======================
-    def show_report(self, title, headers, rows):
-      window = QMainWindow(self.page)  # ⬅️ kasih parent
-      window.setWindowTitle(title)
+    # ====================== EXPORT HTML (EXCEL) ======================
+    def export_to_excel_html(self, title, headers, rows):
+        folder = os.path.join(os.getcwd(), "exports")
+        os.makedirs(folder, exist_ok=True)
 
-      table = QTableWidget()
-      table.setColumnCount(len(headers))
-      table.setHorizontalHeaderLabels(headers)
-      table.setRowCount(len(rows))
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{title.replace(' ', '_')}_{timestamp}.xls"
+        filepath = os.path.join(folder, filename)
 
-      for i, row in enumerate(rows):
-          for j, value in enumerate(row):
-              table.setItem(i, j, QTableWidgetItem(str(value)))
+        html = f"""
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                }}
+                table {{
+                    border-collapse: collapse;
+                    width: 100%;
+                }}
+                th {{
+                    background-color: #2f3542;
+                    color: white;
+                    padding: 8px;
+                    border: 1px solid #555;
+                    text-align: center;
+                }}
+                td {{
+                    padding: 6px;
+                    border: 1px solid #999;
+                }}
+                tr:nth-child(even) {{
+                    background-color: #f2f2f2;
+                }}
+                h2 {{
+                    text-align: center;
+                }}
+            </style>
+        </head>
+        <body>
+            <h2>{title}</h2>
+            <table>
+                <thead>
+                    <tr>
+        """
 
-      table.resizeColumnsToContents()
-      table.setEditTriggers(QTableWidget.NoEditTriggers)
+        for h in headers:
+            html += f"<th>{h}</th>"
 
-      table.setStyleSheet("""
-        QTableWidget {
-            background-color: #1e1e1e;
-            color: #ffffff;
-            gridline-color: #444444;
-            font-size: 12px;
-        }
+        html += "</tr></thead><tbody>"
 
-        QHeaderView::section {
-            background-color: #2b2b2b;
-            color: #ffffff;
-            padding: 6px;
-            border: 1px solid #444444;
-            font-weight: bold;
-        }
+        for row in rows:
+            html += "<tr>"
+            for col in row:
+                html += f"<td>{col}</td>"
+            html += "</tr>"
 
-        QTableWidget::item {
-            padding: 4px;
-        }
+        html += """
+                </tbody>
+            </table>
+        </body>
+        </html>
+        """
 
-        QTableWidget::item:selected {
-            background-color: #3d7848;
-            color: white;
-        }
-    """)
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(html)
 
-      container = QWidget()
-      layout = QVBoxLayout(container)
-      layout.addWidget(table)
+        QMessageBox.information(
+            self.page,
+            "Export Berhasil",
+            f"Laporan berhasil diexport ke Excel:\n{filepath}"
+        )
 
-      window.setCentralWidget(container)
-      window.resize(900, 450)
-
-      window.show()
-      self.report_windows.append(window)
-
-    # ====================== 1. Semua User ======================
+    # ====================== 1. LAPORAN USER ======================
     def report_all_users(self):
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT username, nama_lengkap, role, is_active FROM user ORDER BY username ASC")
+        cursor.execute("""
+            SELECT username, nama_lengkap, role, is_active
+            FROM user
+            ORDER BY username ASC
+        """)
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        headers = ["Username", "Nama Lengkap", "Role", "Status Aktif"]
-        self.show_report("Laporan Semua User", headers, rows)
 
-    # ====================== 2. Semua Barang ======================
+        headers = ["Username", "Nama Lengkap", "Role", "Status Aktif"]
+        self.export_to_excel_html("Laporan Semua User", headers, rows)
+
+    # ====================== 2. LAPORAN BARANG ======================
     def report_all_barang(self):
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT kode_barang, nama_barang, kategori, stok, harga FROM barang ORDER BY nama_barang ASC")
+        cursor.execute("""
+            SELECT kode_barang, nama_barang, kategori, stok, harga
+            FROM barang
+            ORDER BY nama_barang ASC
+        """)
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok", "Harga"]
-        self.show_report("Laporan Semua Barang", headers, rows)
 
-    # ====================== 3. Barang Masuk ======================
+        headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok", "Harga"]
+        self.export_to_excel_html("Laporan Semua Barang", headers, rows)
+
+    # ====================== 3. BARANG MASUK ======================
     def report_barang_masuk(self):
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT tanggal, kode_barang, jumlah, username FROM barang_masuk ORDER BY tanggal DESC")
+        cursor.execute("""
+            SELECT tanggal, kode_barang, jumlah, username
+            FROM barang_masuk
+            ORDER BY tanggal DESC
+        """)
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        headers = ["Tanggal", "Kode Barang", "Jumlah", "User"]
-        self.show_report("Laporan Barang Masuk", headers, rows)
 
-    # ====================== 4. Barang Keluar ======================
+        headers = ["Tanggal", "Kode Barang", "Jumlah", "User"]
+        self.export_to_excel_html("Laporan Barang Masuk", headers, rows)
+
+    # ====================== 4. BARANG KELUAR ======================
     def report_barang_keluar(self):
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT tanggal, kode_barang, jumlah, tujuan, username FROM barang_keluar ORDER BY tanggal DESC")
+        cursor.execute("""
+            SELECT tanggal, kode_barang, jumlah, tujuan, username
+            FROM barang_keluar
+            ORDER BY tanggal DESC
+        """)
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        headers = ["Tanggal", "Kode Barang", "Jumlah", "Tujuan", "User"]
-        self.show_report("Laporan Barang Keluar", headers, rows)
 
-    # ====================== 5. Stok Minimum ======================
+        headers = ["Tanggal", "Kode Barang", "Jumlah", "Tujuan", "User"]
+        self.export_to_excel_html("Laporan Barang Keluar", headers, rows)
+
+    # ====================== 5. STOK MINIMUM ======================
     def report_stok_min(self):
         conn = self.get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT kode_barang, nama_barang, kategori, stok FROM barang WHERE stok <= 5 ORDER BY stok ASC")
+        cursor.execute("""
+            SELECT kode_barang, nama_barang, kategori, stok
+            FROM barang
+            WHERE stok <= 5
+            ORDER BY stok ASC
+        """)
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok"]
-        self.show_report("Laporan Stok Minimum", headers, rows)
 
-    # ====================== Laporan Keseluruhan Transaksi ======================
+        headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok"]
+        self.export_to_excel_html("Laporan Stok Minimum", headers, rows)
+
+    # ====================== 6. TRANSAKSI KESELURUHAN ======================
     def report_transaksi_keseluruhan(self):
         conn = self.get_connection()
         cursor = conn.cursor()
 
-        # Ambil barang masuk
         cursor.execute("""
-            SELECT 'Masuk' AS tipe, tanggal, kode_barang, jumlah, username, NULL AS tujuan
+            SELECT 'Masuk', tanggal, kode_barang, jumlah, username, ''
             FROM barang_masuk
         """)
         masuk = cursor.fetchall()
 
-        # Ambil barang keluar
         cursor.execute("""
-            SELECT 'Keluar' AS tipe, tanggal, kode_barang, jumlah, username, tujuan
+            SELECT 'Keluar', tanggal, kode_barang, jumlah, username, tujuan
             FROM barang_keluar
         """)
         keluar = cursor.fetchall()
 
-        # Gabungkan
         rows = masuk + keluar
-        rows.sort(key=lambda x: x[1], reverse=True)  # urut berdasarkan tanggal DESC
+        rows.sort(key=lambda x: x[1], reverse=True)
 
         cursor.close()
         conn.close()
 
         headers = ["Tipe", "Tanggal", "Kode Barang", "Jumlah", "User", "Tujuan"]
-        self.show_report("Laporan Keseluruhan Transaksi", headers, rows)
+        self.export_to_excel_html("Laporan Transaksi Keseluruhan", headers, rows)
 
-    # ====================== 7. Aktivitas User ======================
+    # ====================== 7. AKTIVITAS USER ======================
     def report_aktivitas_user(self):
-      conn = self.get_connection()
-      cursor = conn.cursor()
+        conn = self.get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT
+                u.username,
+                l.aktivitas,
+                l.keterangan,
+                l.tabel_terkait,
+                l.created_at
+            FROM log_aktivitas l
+            JOIN user u ON l.id_user = u.id
+            ORDER BY l.created_at DESC
+        """)
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
 
-      cursor.execute("""
-          SELECT
-              u.username,
-              l.aktivitas,
-              l.keterangan,
-              l.tabel_terkait,
-              l.created_at
-          FROM log_aktivitas l
-          JOIN user u ON l.id_user = u.id
-          ORDER BY l.created_at DESC
-      """)
-
-      rows = cursor.fetchall()
-      cursor.close()
-      conn.close()
-
-      headers = [
-          "Username",
-          "Aktivitas",
-          "Keterangan",
-          "Tabel",
-          "Waktu"
-      ]
-
-      self.show_report("Laporan Aktivitas User", headers, rows)
+        headers = ["Username", "Aktivitas", "Keterangan", "Tabel", "Waktu"]
+        self.export_to_excel_html("Laporan Aktivitas User", headers, rows)
