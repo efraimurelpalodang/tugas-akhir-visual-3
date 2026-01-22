@@ -99,7 +99,6 @@ class Dashboard(QMainWindow):
         self.pushButton_8.clicked.connect(self.load_page_laporan_transaksi)  # Laporan Transaksi
         self.pushButton_9.clicked.connect(self.load_page_laporan_stok)       # Laporan Stok
         self.pushButton_10.clicked.connect(self.load_page_management_user)   # Management User
-
         self.load_page_dashboard()
 
     def clear_content(self):
@@ -108,6 +107,45 @@ class Dashboard(QMainWindow):
             widget = item.widget()
             if widget:
                 widget.deleteLater()
+    
+    def load_dashboard_cards(self):
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="db_inventory_gudang"
+        )
+        cursor = conn.cursor()
+
+        # TOTAL TRANSAKSI
+        cursor.execute("SELECT COUNT(*) FROM transaksi")
+        total_transaksi = cursor.fetchone()[0] or 0
+
+        # BARANG MASUK
+        cursor.execute("""
+            SELECT IFNULL(SUM(dt.quantity), 0)
+            FROM transaksi t
+            JOIN detail_transaksi dt ON dt.id_transaksi = t.id
+            WHERE t.type_transaksi = 'masuk'
+        """)
+        barang_masuk = cursor.fetchone()[0]
+
+        # BARANG KELUAR
+        cursor.execute("""
+            SELECT IFNULL(SUM(dt.quantity), 0)
+            FROM transaksi t
+            JOIN detail_transaksi dt ON dt.id_transaksi = t.id
+            WHERE t.type_transaksi = 'keluar'
+        """)
+        barang_keluar = cursor.fetchone()[0]
+
+        cursor.close()
+        conn.close()
+
+        self.page_dashboard.label_4.setText(str(total_transaksi))
+        self.page_dashboard.label_6.setText(str(barang_masuk))
+        self.page_dashboard.label_7.setText(str(barang_keluar))
+
 
     def logout(self):
         reply = QMessageBox.question(
@@ -125,10 +163,10 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN DASHBOARD =================
     def load_page_dashboard(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_dashboard.ui"))
-        self.contentLayout.addWidget(page)
-        # load tabel aktivitas juga
+        self.page_dashboard = uic.loadUi(os.path.join(UI_DIR, "pages", "page_dashboard.ui"))
+        self.contentLayout.addWidget(self.page_dashboard)
         self.load_table()
+        self.load_dashboard_cards()
 
     # ================= HALAMAN TRANSAKSI BARANG MASUK =================
     def load_page_transaksi_masuk(self):
