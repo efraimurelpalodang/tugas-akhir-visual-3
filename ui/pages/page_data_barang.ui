@@ -600,6 +600,30 @@ QTableWidget::item:hover {
         <string>Daftar Barang</string>
        </property>
       </widget>
+      <widget class="QPushButton" name="btn_report_barang">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>0</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+	background-color: rgb(85, 255, 127);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: rgb(0,0,0);
+}</string>
+       </property>
+       <property name="text">
+        <string>Cetak</string>
+       </property>
+      </widget>
      </widget>
     </item>
    </layout>

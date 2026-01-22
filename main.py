@@ -16,6 +16,8 @@ from crud_data_supplier import SupplierHandler
 from laporan_transaksi import LaporanTransaksiHandler
 from laporan_stok import LaporanStokHandler
 from crud_user import UserHandler
+from report import ReportHandler  
+
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -174,6 +176,7 @@ class Dashboard(QMainWindow):
 
         self.laporan_handler = LaporanTransaksiHandler(self.page_laporan)
         self.laporan_handler.load_table()
+        self.report_handler = ReportHandler(self.page_laporan)
 
     # ================= HALAMAN LAPORAN STOK =================
     def load_page_laporan_stok(self):
@@ -200,6 +203,7 @@ class Dashboard(QMainWindow):
 
         # ✅ MASUKKAN TABLE KE frameContent JUGA
         self.contentLayout.addWidget(self.table_ui)
+        self.report_handler = ReportHandler(self.table_ui)
 
         self.load_data_mysql()
 

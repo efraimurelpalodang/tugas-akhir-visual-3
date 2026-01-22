@@ -96,6 +96,30 @@
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffffff;&quot;&gt;Laporan &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;Stok Barang Perlu Ditambah&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
+         <widget class="QPushButton" name="btn_report_stok_min">
+          <property name="geometry">
+           <rect>
+            <x>410</x>
+            <y>0</y>
+            <width>81</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton {
+	background-color: rgb(85, 255, 127);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: rgb(0,0,0);
+}</string>
+          </property>
+          <property name="text">
+           <string>Cetak</string>
+          </property>
+         </widget>
         </widget>
        </item>
        <item>

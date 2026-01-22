@@ -61,6 +61,47 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="btn_report_aktivitas_user">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color: rgb(85, 255, 127);
+    border: none;
+    text-align: center;
+    font-size: 10pt;
+    border-radius: 6px;  /* Radius sedang, tidak terlalu bulat */
+    margin: 2px 8px;
+    color: rgb(0,0,0);
+}
+QPushButton:hover {
+	background-color: rgb(170, 255, 127);
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Cetak </string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
