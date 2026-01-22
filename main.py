@@ -80,6 +80,7 @@ class Dashboard(QMainWindow):
             os.path.join(UI_DIR, "layouts", "dashboard.ui"),
             self
         )
+        self.pushButton_11.clicked.connect(self.logout)
 
         # tampilkan nama user
         if hasattr(self, "labelUser"):
@@ -107,6 +108,19 @@ class Dashboard(QMainWindow):
             widget = item.widget()
             if widget:
                 widget.deleteLater()
+
+    def logout(self):
+        reply = QMessageBox.question(
+            self,
+            "Konfirmasi Keluar",
+            "Apakah anda yakin ingin keluar dari aplikasi?",
+            QMessageBox.Yes | QMessageBox.No
+        )
+
+        if reply == QMessageBox.Yes:
+            self.login = Login()
+            self.login.show()
+            self.close()
 
     # ================= HALAMAN DASHBOARD =================
     def load_page_dashboard(self):
