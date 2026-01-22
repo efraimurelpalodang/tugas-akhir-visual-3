@@ -12,6 +12,7 @@ from crud_transaksi_masuk import TransaksiMasukHandler
 from crud_transaksi_keluar import TransaksiKeluarHandler
 from crud_data_barang import BarangHandler
 from crud_data_kategori_satuan import KategoriSatuanHandler
+from crud_data_supplier import SupplierHandler
 
 # ================= PATH DASAR =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -156,8 +157,11 @@ class Dashboard(QMainWindow):
     # ================= HALAMAN DATA SUPPLIER =================
     def load_page_data_supplier(self):
         self.clear_content()
-        page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_supplier.ui"))
-        self.contentLayout.addWidget(page)
+        self.page_trm = uic.loadUi(os.path.join(UI_DIR, "pages", "page_data_supplier.ui"))
+        self.contentLayout.addWidget(self.page_trm)
+
+        self.handler = SupplierHandler(self.page_trm)
+        self.handler.load_table()
 
     # ================= HALAMAN LAPORAN TRANSAKSI =================
     def load_page_laporan_transaksi(self):
@@ -176,8 +180,6 @@ class Dashboard(QMainWindow):
         self.clear_content()
         page = uic.loadUi(os.path.join(UI_DIR, "pages", "page_management_user.ui"))
         self.contentLayout.addWidget(page)
-
-    
 
     def load_table(self):
         self.table_ui = uic.loadUi(
