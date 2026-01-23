@@ -22,21 +22,21 @@ Aplikasi ini bertujuan untuk membantu pengelolaan data barang secara terkomputer
 ## 📂 Struktur Folder
 
 tugas-akhir-visual-3/
-│
 ├── crud/
-│ ├── crud_user.py
-│ ├── crud_barang.py
-│ └── ...
+│   ├── crud_user.py
+│   ├── crud_barang.py
+│   └── ...
 │
 ├── ui/
-│ └── layouts/
-│ ├── login.ui
-│ ├── dashboard.ui
-│ └── ...
+│   └── layouts/
+│       ├── login.ui
+│       ├── dashboard.ui
+│       └── ...
 │
 ├── main.py
 ├── README.md
 └── .vscode/
+
 
 
 ---
