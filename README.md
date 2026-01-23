@@ -36,6 +36,7 @@ tugas-akhir-visual-3/
 ├── main.py
 ├── README.md
 └── .vscode/
+|__ db_inventory_gudang.sql -> databasenya
 
 
 
@@ -44,10 +45,10 @@ tugas-akhir-visual-3/
 ## ⚙️ Fitur Aplikasi
 - Login pengguna
 - Manajemen data barang
-  - Tambah data barang
-  - Lihat data barang
-  - Edit data barang
-  - Hapus data barang
+- Manajemen data transaksi barang masuk
+- Manajemen data transaksi barang keluar
+- Manajemen pengguna
+- mencetak 7 report (report aktivitas users, report barang masuk, report barang keluar, report data petugas, report stok min, transaksi keseluruhan, report all barang )
 - Antarmuka grafis menggunakan Qt Designer
 - Koneksi database MySQL
 
