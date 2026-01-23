@@ -94,7 +94,7 @@ QTableWidget::item:hover {
     <string>Log Aktivitas Pengguna</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_report_aktivitas_user_2">
+  <widget class="QPushButton" name="btn_report_aktivitas_user">
    <property name="geometry">
     <rect>
      <x>770</x>

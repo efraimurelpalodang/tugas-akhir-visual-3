@@ -20,7 +20,6 @@ class ReportHandler:
 
     # ====================== CONNECT BUTTON ======================
     def setup_buttons(self):
-        """Menghubungkan tombol laporan yang ada di halaman"""
         try:
             # Cari semua atribut yang merupakan tombol
             for attr_name in dir(self.page):
@@ -30,61 +29,69 @@ class ReportHandler:
                     # Cek jika ini tombol laporan berdasarkan nama
                     attr_lower = attr_name.lower()
                     
-                    if 'user' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
+                    # ✅ **URUTKAN DENGAN BENAR: aktivitas HARUS SEBELUM barang**
+                    
+                    # 1. AKTIVITAS USER (PERTAMA!)
+                    if 'aktivitas' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()  # Hapus koneksi lama
                         except:
                             pass
-                        btn.clicked.connect(self.report_all_users)
-                        print(f"✅ Tombol {attr_name} -> Laporan User")
+                        btn.clicked.connect(self.report_aktivitas_user)
+                        continue  # Penting: skip kondisi lainnya
                         
+                    # 2. USER
+                    elif 'user' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
+                        try:
+                            btn.clicked.disconnect()
+                        except:
+                            pass
+                        btn.clicked.connect(self.report_all_users)
+                        continue
+                        
+                    # 3. BARANG MASUK (spesifik)
                     elif 'barang' in attr_lower and 'masuk' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()
                         except:
                             pass
                         btn.clicked.connect(self.report_barang_masuk)
-                        print(f"✅ Tombol {attr_name} -> Laporan Barang Masuk")
+                        continue
                         
+                    # 4. BARANG KELUAR (spesifik)
                     elif 'barang' in attr_lower and 'keluar' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()
                         except:
                             pass
                         btn.clicked.connect(self.report_barang_keluar)
-                        print(f"✅ Tombol {attr_name} -> Laporan Barang Keluar")
+                        continue
                         
+                    # 5. STOK
                     elif 'stok' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()
                         except:
                             pass
                         btn.clicked.connect(self.report_stok_min)
-                        print(f"✅ Tombol {attr_name} -> Laporan Stok")
+                        continue
                         
+                    # 6. TRANSAKSI
                     elif 'transaksi' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()
                         except:
                             pass
                         btn.clicked.connect(self.report_transaksi_keseluruhan)
-                        print(f"✅ Tombol {attr_name} -> Laporan Transaksi")
+                        continue
                         
-                    elif 'aktivitas' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
-                        try:
-                            btn.clicked.disconnect()
-                        except:
-                            pass
-                        btn.clicked.connect(self.report_aktivitas_user)
-                        print(f"✅ Tombol {attr_name} -> Laporan Aktivitas")
-                        
+                    # 7. BARANG (umum) - HARUS DITEMPATKAN TERAKHIR
                     elif 'barang' in attr_lower and ('cetak' in attr_lower or 'report' in attr_lower or 'export' in attr_lower or 'print' in attr_lower):
                         try:
                             btn.clicked.disconnect()
                         except:
                             pass
                         btn.clicked.connect(self.report_all_barang)
-                        print(f"✅ Tombol {attr_name} -> Laporan Barang")
                         
         except Exception as e:
             print(f"Error setting up report buttons: {e}")
@@ -186,16 +193,21 @@ class ReportHandler:
             conn = self.get_connection()
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT username, nama_lengkap, role, 
-                       CASE WHEN is_active = 1 THEN 'Aktif' ELSE 'Non-Aktif' END as status
+                SELECT 
+                    id,
+                    username, 
+                    nama_lengkap, 
+                    role, 
+                    DATE_FORMAT(created_at, '%d-%m-%Y %H:%i') as tanggal_dibuat,
+                    CASE WHEN is_active = 1 THEN 'Aktif' ELSE 'Non-Aktif' END as status
                 FROM user
-                ORDER BY username
+                ORDER BY id
             """)
             rows = cursor.fetchall()
             cursor.close()
             conn.close()
 
-            headers = ["Username", "Nama Lengkap", "Role", "Status"]
+            headers = ["ID", "Username", "Nama Lengkap", "Role", "Tanggal Dibuat", "Status"]
             self.export_to_excel_html("Laporan Data User", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data user:\n{str(e)}")
@@ -206,16 +218,26 @@ class ReportHandler:
             conn = self.get_connection()
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT kode_barang, nama_barang, kategori, stok, 
-                       CONCAT('Rp ', FORMAT(harga, 0)) as harga
-                FROM barang
-                ORDER BY nama_barang
+                SELECT 
+                    b.id,
+                    b.nama_barang,
+                    k.nama_kategori,
+                    s.nama_satuan,
+                    b.stok,
+                    b.stok_minimum,
+                    CONCAT('Rp ', FORMAT(b.harga_beli, 0)) as harga_beli,
+                    CONCAT('Rp ', FORMAT(b.harga_jual, 0)) as harga_jual,
+                    DATE_FORMAT(b.created_at, '%d-%m-%Y') as tanggal_input
+                FROM barang b
+                LEFT JOIN kategori k ON b.id_kategori = k.id
+                LEFT JOIN satuan s ON b.id_satuan = s.id
+                ORDER BY b.nama_barang
             """)
             rows = cursor.fetchall()
             cursor.close()
             conn.close()
 
-            headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok", "Harga"]
+            headers = ["ID", "Nama Barang", "Kategori", "Satuan", "Stok", "Stok Minimum", "Harga Beli", "Harga Jual", "Tanggal Input"]
             self.export_to_excel_html("Laporan Data Barang", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data barang:\n{str(e)}")
@@ -227,14 +249,18 @@ class ReportHandler:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT
-                    DATE_FORMAT(t.tanggal, '%d-%m-%Y %H:%i') as tanggal,
-                    b.kode_barang,
+                    t.kode_transaksi,
+                    DATE_FORMAT(t.tanggal, '%d-%m-%Y') as tanggal,
                     b.nama_barang,
                     dt.quantity,
-                    u.username
+                    CONCAT('Rp ', FORMAT(dt.harga_satuan, 0)) as harga_satuan,
+                    CONCAT('Rp ', FORMAT(dt.sub_total, 0)) as sub_total,
+                    sp.nama_supplier,
+                    u.nama_lengkap as user_input
                 FROM transaksi t
                 JOIN detail_transaksi dt ON dt.id_transaksi = t.id
                 JOIN barang b ON dt.id_barang = b.id
+                LEFT JOIN supplier sp ON t.id_supplier = sp.id
                 JOIN user u ON t.id_user = u.id
                 WHERE t.type_transaksi = 'masuk'
                 ORDER BY t.tanggal DESC
@@ -243,7 +269,7 @@ class ReportHandler:
             cursor.close()
             conn.close()
 
-            headers = ["Tanggal", "Kode Barang", "Nama Barang", "Jumlah", "User"]
+            headers = ["Kode Transaksi", "Tanggal", "Nama Barang", "Jumlah", "Harga Satuan", "Sub Total", "Supplier", "User Input"]
             self.export_to_excel_html("Laporan Barang Masuk", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data barang masuk:\n{str(e)}")
@@ -255,12 +281,14 @@ class ReportHandler:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT
-                    DATE_FORMAT(t.tanggal, '%d-%m-%Y %H:%i') as tanggal,
-                    b.kode_barang,
+                    t.kode_transaksi,
+                    DATE_FORMAT(t.tanggal, '%d-%m-%Y') as tanggal,
                     b.nama_barang,
                     dt.quantity,
-                    u.username,
-                    IFNULL(t.tujuan, '-') as tujuan
+                    CONCAT('Rp ', FORMAT(dt.harga_satuan, 0)) as harga_satuan,
+                    CONCAT('Rp ', FORMAT(dt.sub_total, 0)) as sub_total,
+                    u.nama_lengkap as user_input,
+                    IFNULL(t.keterangan, '-') as keterangan
                 FROM transaksi t
                 JOIN detail_transaksi dt ON dt.id_transaksi = t.id
                 JOIN barang b ON dt.id_barang = b.id
@@ -272,7 +300,7 @@ class ReportHandler:
             cursor.close()
             conn.close()
 
-            headers = ["Tanggal", "Kode Barang", "Nama Barang", "Jumlah", "User", "Tujuan"]
+            headers = ["Kode Transaksi", "Tanggal", "Nama Barang", "Jumlah", "Harga Satuan", "Sub Total", "User Input", "Keterangan"]
             self.export_to_excel_html("Laporan Barang Keluar", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data barang keluar:\n{str(e)}")
@@ -283,16 +311,27 @@ class ReportHandler:
             conn = self.get_connection()
             cursor = conn.cursor()
             cursor.execute("""
-                SELECT kode_barang, nama_barang, kategori, stok
-                FROM barang
-                WHERE stok <= 5
-                ORDER BY stok
+                SELECT 
+                    b.id,
+                    b.nama_barang,
+                    k.nama_kategori,
+                    b.stok,
+                    b.stok_minimum,
+                    CASE 
+                        WHEN b.stok <= b.stok_minimum THEN 'Kritis'
+                        WHEN b.stok <= (b.stok_minimum * 2) THEN 'Hampir Habis'
+                        ELSE 'Aman'
+                    END as status_stok
+                FROM barang b
+                LEFT JOIN kategori k ON b.id_kategori = k.id
+                WHERE b.stok <= (b.stok_minimum * 2)
+                ORDER BY b.stok
             """)
             rows = cursor.fetchall()
             cursor.close()
             conn.close()
 
-            headers = ["Kode Barang", "Nama Barang", "Kategori", "Stok"]
+            headers = ["ID", "Nama Barang", "Kategori", "Stok Saat Ini", "Stok Minimum", "Status Stok"]
             self.export_to_excel_html("Laporan Stok Minimum", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data stok minimum:\n{str(e)}")
@@ -304,24 +343,31 @@ class ReportHandler:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT
-                    t.type_transaksi,
-                    DATE_FORMAT(t.tanggal, '%d-%m-%Y %H:%i') as tanggal,
-                    b.kode_barang,
+                    t.kode_transaksi,
+                    DATE_FORMAT(t.tanggal, '%d-%m-%Y') as tanggal,
+                    CASE 
+                        WHEN t.type_transaksi = 'masuk' THEN 'Barang Masuk'
+                        WHEN t.type_transaksi = 'keluar' THEN 'Barang Keluar'
+                    END as jenis_transaksi,
                     b.nama_barang,
                     dt.quantity,
-                    u.username,
-                    IFNULL(t.tujuan, '') as tujuan
+                    CONCAT('Rp ', FORMAT(dt.harga_satuan, 0)) as harga_satuan,
+                    CONCAT('Rp ', FORMAT(dt.sub_total, 0)) as sub_total,
+                    sp.nama_supplier,
+                    u.nama_lengkap as user_input,
+                    IFNULL(t.keterangan, '-') as keterangan
                 FROM transaksi t
                 JOIN detail_transaksi dt ON dt.id_transaksi = t.id
                 JOIN barang b ON dt.id_barang = b.id
+                LEFT JOIN supplier sp ON t.id_supplier = sp.id
                 JOIN user u ON t.id_user = u.id
-                ORDER BY t.tanggal DESC
+                ORDER BY t.tanggal DESC, t.kode_transaksi
             """)
             rows = cursor.fetchall()
             cursor.close()
             conn.close()
 
-            headers = ["Tipe", "Tanggal", "Kode Barang", "Nama Barang", "Jumlah", "User", "Tujuan"]
+            headers = ["Kode Transaksi", "Tanggal", "Jenis Transaksi", "Nama Barang", "Jumlah", "Harga Satuan", "Sub Total", "Supplier", "User Input", "Keterangan"]
             self.export_to_excel_html("Laporan Semua Transaksi", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data transaksi:\n{str(e)}")
@@ -334,9 +380,11 @@ class ReportHandler:
             cursor.execute("""
                 SELECT
                     u.username,
+                    u.nama_lengkap,
                     l.aktivitas,
                     l.keterangan,
                     l.tabel_terkait,
+                    l.tabel_record,
                     DATE_FORMAT(l.created_at, '%d-%m-%Y %H:%i:%s') as waktu
                 FROM log_aktivitas l
                 JOIN user u ON l.id_user = u.id
@@ -346,7 +394,7 @@ class ReportHandler:
             cursor.close()
             conn.close()
 
-            headers = ["User", "Aktivitas", "Keterangan", "Tabel", "Waktu"]
+            headers = ["Username", "Nama Lengkap", "Aktivitas", "Keterangan", "Tabel Terkait", "ID Record", "Waktu"]
             self.export_to_excel_html("Laporan Aktivitas User", headers, rows)
         except Exception as e:
             QMessageBox.critical(self.page, "Error", f"Gagal mengambil data aktivitas:\n{str(e)}")
